@@ -37,15 +37,57 @@ namespace TechJobsTests
             Assert.IsTrue(test_job3.EmployerName.Value == "ACME");
             Assert.IsTrue(test_job3.EmployerLocation.Value == "Desert");
             Assert.IsTrue(test_job3.JobType.Value == "Quality control");
-            Assert.IsTrue(test_job3.JobCoreCompetency.value == "Persistence");
+            Assert.IsTrue(test_job3.JobCoreCompetency.Value == "Persistence");
 
         }
 
         [TestMethod]
-        public void TestJobsForEquality()
+        public void TestJobsForEquality()  
         {
+
+            Employer marine_corps = new Employer("Marine Corps");
+            Location virginia = new Location("Virgina");
+            PositionType sre = new PositionType("SRE");
+            CoreCompetency data = new CoreCompetency("Data");
+
+            Job test_job4 = new Job("Daryn", marine_corps, virginia, sre, data);
+            Job test_job5 = new Job("Daryn", marine_corps, virginia, sre, data);
+
+           Assert.IsFalse(test_job4.Equals(test_job5));
 
         }
 
+        [TestMethod]
+        public void TestFirstItemOfList()
+        {
+            Employer marine_corps = new Employer("Marine Corps");
+            Location virginia = new Location("Virgina");
+            PositionType sre = new PositionType("SRE");
+            CoreCompetency data = new CoreCompetency("Data");
+
+            Job test_job6 = new Job("Daryn", marine_corps, virginia, sre, data);
+
+            string testString = test_job6.ToString();
+            char firstChar = testString[0];
+            char lastChar = testString[testString.Length - 1];
+
+            Assert.IsTrue(firstChar == lastChar);
+        }
+
+        [TestMethod]
+        public void TestToStringConstainsCorrectLabelsAndData()
+        {
+
+            Employer marine_corps = new Employer("Marine Corps");
+            Location virginia = new Location("Virgina");
+            PositionType sre = new PositionType("SRE");
+            CoreCompetency data = new CoreCompetency("Data");
+
+            Job test_job6 = new Job("Daryn", marine_corps, virginia, sre, data);
+
+            string testOutput = $"\nID: {test_job6.JobId}\n Name: {test_job6.Name}\n Employer: {test_job6.EmployerName}\nLocation: {test_job6.EmployerLocation}\nPosition Type: {test_job6.JobType}\n Core Competency:{test_job6.JobCoreCompetency}\n";
+
+            Assert.AreEqual(testOutput, test_job6.ToString());
+        }
     }
 }
